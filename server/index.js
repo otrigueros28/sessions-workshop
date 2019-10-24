@@ -65,6 +65,8 @@ app.post('/api/login', (req, res, next) => {
 
 app.get('/api/logout', (req, res, next) => {
   // TODO: Build this functionality.
+  req.session.destroy()
+  res.status(204).send({message: 'User is logged out'})
   next();
 });
 
@@ -72,7 +74,7 @@ app.get('/api/session', (req, res, next) => {
   // TODO: Build this functionality.
   const user = req.session.user;
   if(user) {
-    return req.send(user)
+    return res.send(user)
   } else {
     //next(res.status(401).send({ message: 'You are unauthorized!' }))
     res.status(401).send({ message: 'You are unauthorized!' })

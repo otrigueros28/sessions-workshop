@@ -14,7 +14,6 @@ class Home extends Component {
       password,
       err,
     } = this.props;
-
     return (
       <div
         style={styles.pageContainer}

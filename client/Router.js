@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios'
 import {
   BrowserRouter,
   Switch,
@@ -6,7 +7,15 @@ import {
 } from 'react-router-dom';
 import Home from './components/home/Home.js';
 
+const fetchUser = async ()=> {
+  console.log((await axios.get('/api/session')).data);
+
+}
+
 class Router extends Component {
+  componentDidMount(){
+    fetchUser();
+      }
   render() {
     return (
       <BrowserRouter>
