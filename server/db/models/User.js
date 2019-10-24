@@ -1,11 +1,18 @@
-const { STRING } = require('sequelize');
+const { STRING, INTEGER } = require('sequelize');
 const db = require('../db.js');
 
 // TODO: Fill out this model.
 const User = db.define('user', {
-  uselessColumn: {
-    type: STRING,
+  id: {
+    primaryKey: true,
+    type: INTEGER
   },
+  username: {
+    type: STRING
+  },
+  password: {
+    type: STRING
+  }
 });
 
 module.exports = User;
