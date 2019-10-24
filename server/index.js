@@ -48,8 +48,14 @@ app.post('/api/login', (req, res, next) => {
     }
   })
   .then(user => {
-    res.send(user)
+    if (!user) {
+    res.status(401).send({ message: 'You are unauthorized!' });
+    } else {
+      req.session.user = user;
+      res.status(200).send({ message: `Hello ${user}, You are logged in` });
+    }
   })
+  .catch(error => next(error))
 
   // TODO: This obviously isn't all we should do...
   //res.status(200).send({ something: 'probably user related?' });
@@ -64,6 +70,15 @@ app.get('/api/logout', (req, res, next) => {
 
 app.get('/api/session', (req, res, next) => {
   // TODO: Build this functionality.
+  const user = req.session.user;
+  if(user) {
+    return req.send(user)
+  } else {
+    //next(res.status(401).send({ message: 'You are unauthorized!' }))
+    res.status(401).send({ message: 'You are unauthorized!' })
+  }
+
+
 });
 
 app.get('*', (req, res) => res.sendFile(path.join(STATIC_DIR, './index.html')));
