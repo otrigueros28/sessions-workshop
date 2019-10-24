@@ -6,7 +6,7 @@ const syncAndSeed = () => db
   .then(() => {
     // TODO: Seed...
     const users = [
-      {id: 1, username: "sam01", password: 'password1'},
+      {id: 1, username: "sam01", password: 'pw01'},
       {id: 2, username: 'rob02', password: 'pw02'},
       {id: 3, username:  'lucy03', password: 'pw03'}
     ]

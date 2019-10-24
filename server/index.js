@@ -3,6 +3,8 @@ const express = require('express');
 const chalk = require('chalk');
 const { syncAndSeed } = require('./db/index.js');
 const expressSession = require('express-session');
+const session = expressSession;
+const User = require('./db/models/user.js')
 
 const PORT = 3000;
 
@@ -39,9 +41,18 @@ app.use(session({
 app.post('/api/login', (req, res, next) => {
   const { username, password } = req.body;
 
+  User.findOne({
+    where: {
+      username: username,
+      password: password
+    }
+  })
+  .then(user => {
+    res.send(user)
+  })
 
   // TODO: This obviously isn't all we should do...
-  res.status(200).send({ something: 'probably user related?' });
+  //res.status(200).send({ something: 'probably user related?' });
   // You can toggle this to see how the app behaves if an error goes down...
   // res.status(401).send({ message: 'You are unauthorized!' });
 });
