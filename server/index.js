@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const chalk = require('chalk');
 const { syncAndSeed } = require('./db/index.js');
+const expressSession = require('express-session');
 
 const PORT = 3000;
 
@@ -27,6 +28,13 @@ app.use((req, res, next) => {
   console.log(`Request to ${req.path} - Body: `, req.body);
   next();
 });
+
+app.use(session({
+  secret: 'cookierefresher',
+  saveUninitialized: true,
+  resave: false,
+  cookie: {secure: false}
+}));
 
 app.post('/api/login', (req, res, next) => {
   const { username, password } = req.body;
